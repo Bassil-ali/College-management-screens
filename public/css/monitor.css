@@ -1,0 +1,172 @@
+@font-face {
+    font-family: hanimation;
+    src: url("/fonts/hanimation-regular.ttf");
+}
+
+html {
+    background: rgb(180, 212, 187);
+    background: -moz-linear-gradient(90deg, rgba(180, 212, 187, 1) 0%, rgba(179, 224, 210, 1) 35%);
+    background: -webkit-linear-gradient(90deg, rgba(180, 212, 187, 1) 0%, rgba(179, 224, 210, 1) 35%);
+    background: linear-gradient(90deg, rgba(180, 212, 187, 1) 0%, rgba(179, 224, 210, 1) 35%);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#b4d4bb", endColorstr="#b3e0d2", GradientType=1);
+    font-family: hanimation !important;
+}
+
+html,
+body {
+    height: 100%;
+    padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+div {
+    font-family: hanimation !important;
+}
+
+.arial {
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+#reset {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+#screen-id {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+#vision {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+#logo {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+}
+
+
+/* ========================================================================
+   Component: Countdown
+ ========================================================================== */
+
+
+/* Item
+ ========================================================================== */
+
+
+/* Number
+ ========================================================================== */
+
+
+/*
+ * 1. Make numbers all of the same size to prevent jumping. Must be supported by the font.
+ * 2. Style
+ */
+
+.uk-countdown-number {
+    /* 1 */
+    font-variant-numeric: tabular-nums;
+    /* 2 */
+    font-size: 2rem;
+    line-height: 0.8;
+}
+
+
+/* Phone landscape and bigger */
+
+@media (min-width: 640px) {
+    .uk-countdown-number {
+        font-size: 4rem;
+    }
+}
+
+
+/* Tablet landscape and bigger */
+
+@media (min-width: 960px) {
+    .uk-countdown-number {
+        font-size: 6rem;
+    }
+}
+
+
+/* Separator
+   ========================================================================== */
+
+.uk-countdown-separator {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+
+/* Phone landscape and bigger */
+
+@media (min-width: 640px) {
+    .uk-countdown-separator {
+        font-size: 2rem;
+    }
+}
+
+
+/* Tablet landscape and bigger */
+
+@media (min-width: 960px) {
+    .uk-countdown-separator {
+        font-size: 3rem;
+    }
+}
+
+
+/* Label
+   ========================================================================== */
+
+
+/* ========================================================================
+     Component: Grid
+   ========================================================================== */
+
+
+/*
+   * 1. Allow cells to wrap into the next line
+   * 2. Reset list
+   */
+
+.uk-grid {
+    display: flex;
+    /* 1 */
+    flex-wrap: wrap;
+    /* 2 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+
+/*
+   * Grid cell
+   * Note: Space is allocated solely based on content dimensions, but shrinks: 0 1 auto
+   * Reset margin for e.g. paragraphs
+   */
+
+.uk-grid>* {
+    margin: 0;
+}
+
+
+/*
+   * Remove margin from the last-child
+   */
+
+.uk-grid>*> :last-child {
+    margin-bottom: 0;
+}

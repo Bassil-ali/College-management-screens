@@ -1,0 +1,137 @@
+@font-face {
+    font-family: hanimation;
+    src: url(/fonts/hanimation-regular.ttf);
+}
+
+body, h1, h2, h3, h4, h5, h6, p {
+    background: rgb(55, 60, 56);
+    background: -moz-linear-gradient(90deg, rgba(55, 60, 56, 1) 0%, rgba(27, 77, 62, 1) 35%, rgba(0, 87, 63, 1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(55, 60, 56, 1) 0%, rgba(27, 77, 62, 1) 35%, rgba(0, 87, 63, 1) 100%);
+    background: linear-gradient(90deg, rgba(55, 60, 56, 1) 0%, rgba(27, 77, 62, 1) 35%, rgba(0, 87, 63, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#373c38", endColorstr="#00573f", GradientType=1);
+    font-family: hanimation;
+    font-size: 1.15em !important;
+}
+
+.my-font {
+    font-family: hanimation !important;
+}
+
+.uk-button-green {
+    background-color: #00A86B;
+    color: #ffffff;
+    border: 1px solid transparent;
+    font-size: 1.20em !important;
+}
+
+.button {
+    cursor: pointer;
+    text-align: center !important;
+}
+
+.uk-tooltip {
+    font-size: 1.25em;
+}
+
+.uk-navbar-container {
+    background: none !important;
+}
+
+tr,
+th {
+    color: #ffffff !important;
+}
+
+.uk-table-hover > tr:hover,
+.uk-table-hover tbody tr:hover {
+    color: #1b4d3e !important;
+    background-color: #D3FFE2 !important;
+}
+
+.uk-card-title {
+    color: #ffffff !important;
+    font-family: hanimation !important;
+}
+
+/* -------------------------- */
+
+.uk-button {
+    color: #ffffff !important;
+}
+
+table.uk-table > tr > td > a:link {
+    color: #01573F !important;
+    border: none !important;
+    background-color: transparent !important;
+}
+
+table.uk-table > tr:nth-last-of-type(even) > td > a:link {
+    color: #f8f8f8 !important;
+}
+
+/*
+* Striped
+*/
+.uk-table-striped > tr:nth-of-type(odd),
+.uk-table-striped tbody tr:nth-of-type(odd) {
+    background: #f8f8f8;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    color: #01573F !important;
+}
+/*
+* Hover
+*/
+.uk-table-hover > tr:hover,
+.uk-table-hover tbody tr:hover {
+    background: #ffd;
+}
+
+/* --------------------- */
+/* Pill modifier
+ ========================================================================== */
+ .uk-subnav-pill > * > :first-child {
+    padding: 5px 10px;
+    background: transparent;
+    color: #999;
+  }
+  /* Hover + Focus */
+  .uk-subnav-pill > * > a:hover,
+  .uk-subnav-pill > * > a:focus {
+    background-color: #f8f8f8;
+    color: #666;
+  }
+  /* OnClick */
+  .uk-subnav-pill > * > a:active {
+    background-color: #f8f8f8;
+    color: #666;
+  }
+  /* Active */
+  .uk-subnav-pill > .uk-active > a {
+    background-color: #a5e69d;
+    color: #31403A;
+  }
+
+  .uk-subnav > * > a {
+    font-size: 1.15em !important;
+  }
+
+.uk-modal-close {
+    color: #31403A !important;
+}
+
+.uk-modal-header {
+    background: #fff !important;
+}
+
+.uk-modal-header > h2 {
+    background: #fff !important;
+}
+
+.uk-heading-divider {
+    background: #fff !important;
+}
+
+.background-selected {
+    background: #e0dddd !important;
+}
