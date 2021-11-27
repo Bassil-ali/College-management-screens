@@ -17,7 +17,8 @@ return [
     'types' => [
         'text' => 'نص',
         'photo' => 'صورة',
-        'video' => 'فيديو',        
+        'video' => 'فيديو',  
+        'multi_type' => 'اعلان متعدد'
     ],
 
     'activate-text' => 'تفعيل إعلان نصي',

@@ -25,6 +25,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('All-Announcement', 'AnnouncementController@getAllannouncement')->name('All.Announcement');
         Route::post('updateAllannouncement', 'AnnouncementController@updateAllannouncement')->name('updateAllannouncement');
         Route::get('All-Announcement-delete/{id}', 'AnnouncementController@deleteAllannouncement')->name('All.Announcement.delete');
+        Route::get('edit-All-Announcement/{number}', 'AnnouncementController@editAllAllannouncement')->name('edit.All.Announcement');
+        Route::get('edit-one-Announcement/{id}', 'AnnouncementController@editOneannouncement')->name('edit.one.Announcement');
 
         Route::post('create', 'AnnouncementController@create')->name('announcements.create');
         Route::post('update', 'AnnouncementController@update')->name('announcements.update');

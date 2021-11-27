@@ -9,9 +9,11 @@
     <div class="uk-form-controls">
         <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
             @foreach (__('announcements.types') as $key => $value)
+            @if($key != 'multi_type') 
             <label style="color: {{ $color }}">
                 <input class="uk-radio" type="radio" name="type" value="{{ $key }}" {{ $key == 'text' ? 'checked' : '' }}> {{ $value }}
             </label>
+            @endif
             @endforeach
         </div>
     </div>

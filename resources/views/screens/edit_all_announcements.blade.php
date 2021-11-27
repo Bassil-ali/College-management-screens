@@ -14,90 +14,84 @@
 @endpush
 
 @section('content')
-<div class="uk-margin-top-remove">
-    <table class="uk-table uk-table-hover ">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>{{ __('announcements.type') }}</th>
-                <th class="uk-text-truncate">{{ __('announcements.value') }}</th>
-                <th class="uk-text-truncate">{{ __('announcements.to') }}</th>
-                <th class="uk-table-shrink">{{ __('announcements.edit') }}</th>
-                <th class="uk-table-shrink">{{ __('announcements.view') }}</th>
-                <th class="uk-table-shrink">{{ __('announcements.trash') }}</th>
-            </tr>
-        </thead>
-        <tbody>
-            @php
-            $i=1;
-            @endphp
-            @foreach ($announcements as $announcement)
-            <tr>
-                <td>{{$i++}}</td>
-                <td>{{ __('announcements.types')[$announcement->type] }}</td>
-                @if($announcement->type == 'multi_type')
-                <td>{{__('announcements.types')[$announcement->type]}}</td>
-                @else
-                <td>{{ $announcement->type == 'text' ? $announcement->value : 'ملف' }}</td>
-                @endif
-                @if (isset($announcement->content_end))
-                <td>{{ $announcement->content_end->format(__('announcements.format')) }}</td>
-                @else
-                <td></td>
-                @endif
-                @if($announcement->type = 'multi_type')
-               <td>
-                   <a class="uk-button uk-button-text" href="{{route('edit.All.Announcement',['number' => $announcement->announcements_number])}}" uk-toggle><span
-                            uk-icon="pencil"></span></a>
-               </td>
-      
-                @else
-                <td>
-                    <button class="uk-button uk-button-text"
-                        uk-toggle="target: #edit-{{ $announcement->announcements_number }}" type="button"><span
-                            uk-icon="pencil"></span></button>
-                    <form id="edit-{{  $announcement->announcements_number }}"
-                        action="{{ route('updateAllannouncement') }}" method="post" enctype="multipart/form-data"
-                        uk-modal>
-                        <div class="uk-modal-dialog">
-                            <button class="uk-modal-close-default" type="button" uk-close></button>
-                            <div class="uk-modal-header">
-                                <h2 class="uk-modal-title">{{ __('announcements.edit') }}</h2>
-                            </div>
-                            <div class="uk-modal-body">
-                                @csrf
-                                <input type="hidden" name="announcements_number"
-                                    value="{{$announcement->announcements_number}}">
-                                <input type="hidden" name="id" value="{{ $announcement->id }}">
-                                @include('screens._form', ['screen_id' => $announcement->screen->id, 'color' => '#343E39
-                                !important'])
-                            </div>
-                            <div class="uk-modal-footer uk-text-left">
-                                <button class="uk-button uk-button-default uk-modal-close" type="button">{{
-                                    __('app.cancel') }}</button>
-                                <button class="uk-button uk-button-primary" type="submit">{{ __('app.save') }}</button>
-                            </div>
-                        </div>
-                    </form>
-                </td>
-                @endif
+<div style="background-color: #fff" class="uk-modal-body">
+    <div class="uk-modal-header">
+        <h2 class="uk-modal-title">تعديل اعلان متعدد</h2>
+    </div>
+    <form action="{{route('updateAllannouncement')}}" method="post" class="uk-form-horizontal uk-margin-large"
+        enctype="multipart/form-data">
+        @csrf
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">النص</label>
+            <div class="uk-form-controls">
+                <input class="uk-input" id="form-horizontal-text" type="text" name="text[]" placeholder="النص">
+            </div>
+            <div id="new_chq"></div>
+        </div>
 
-                <td>
-                    <button class="uk-button uk-button-text" uk-toggle="target: #modal-{{ $announcement->id }}"><span
-                            uk-icon="icon: search"></span></button>
-                    @include('modals.announcement')
-                </td>
-                <td>
-                    <a href="{{route('All.Announcement.delete',['id' => $announcement->announcements_number])}}"
-                        class="uk-button uk-button-text" data-index="{{ $i }}" type="button"><span
-                            uk-icon="trash"></span></a>
-                </td>
-            </tr>
-            
-            @endforeach
-        </tbody>
+        <a class="uk-button uk-button-primary add">اضافة نص اخر+</a>
+        {{-- <button class="uk-button uk-button-danger remove">remove</button> --}}
 
-    </table>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-select">اختر صوره</label>
+            <div class=" uk-placeholder uk-text-center">
+                <span uk-icon="icon: cloud-upload"></span>
+                <span class="uk-text-middle">إرفاق الثنائيات بإسقاطها هنا </span>
+                <div uk-form-custom>
+                    <input type="file" name="image[]" value="" multiple>
+                    <span class="uk-link">اختر من هنا</span>
+                </div>
+            </div>
+            <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
+            <div id="new_chq_image"></div>
+        </div>
+        <a class="uk-button uk-button-primary add-image">اضافة صوره جديدة</a>
+
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-select">اختر فديو</label>
+            <div class="js-upload uk-placeholder uk-text-center">
+                <span uk-icon="icon: cloud-upload"></span>
+                <span class="uk-text-middle">إرفاق الثنائيات بإسقاطها هنا </span>
+                <div uk-form-custom>
+                    <input type="file" name="vedio[]" value="" multiple>
+                    <span class="uk-link">اختر من هنا</span>
+                </div>
+            </div>
+            <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
+            <div id="new_chq_vedio"></div>
+        </div>
+        <a class="uk-button uk-button-primary add-vedio">اضافة فديو جديد</a>
+        <div uk-grid>
+            <div class="uk-width-1-2">
+                <label class="uk-form-label uk-padding-small my-color" style="color: ">{{
+                    __('screens.from')
+                    }}</label>
+                <div class="">
+                    <input type="text" name="content_start" id="begin" class="uk-input datetimepicker"
+                        autocomplete="off"
+                        value="{{ isset($announcement->content_start) ? $announcement->content_start->format('Y-m-d h:i') : '' }}">
+                </div>
+            </div>
+
+            <div class="uk-width-1-2">
+                <label class="uk-form-label uk-padding-small my-color" style="color: ">{{
+                    __('screens.to')
+                    }}</label>
+                <div class="">
+                    <input type="text" name="content_end" id="end" class="uk-input datetimepicker" autocomplete="off"
+                        value="{{ isset($announcement->content_end) ? $announcement->content_end->format('Y-m-d h:i') : '' }}">
+                </div>
+            </div>
+        </div>
+        <input type="hidden" value="1" id="total_chq">
+        <input type="hidden" name="announcements_number" value="{{$announcement->announcements_number}}"> 
+        <input
+            type="hidden" value="multi_type" name="type">
+</div>
+<div class="uk-modal-footer uk-text-right">
+    <button class="uk-button uk-button-default uk-modal-close" type="button">الغاء</button>
+<button class="uk-button uk-button-primary" type="submit">تعديل</button></div>
+</form>
 </div>
 
 @endsection
@@ -107,7 +101,6 @@
 <script src="{{ url('js/jquery.datetimepicker.full.js') }}"></script>
 <script src="{{ url('js/rainbow-custom.min.js') }}"></script>
 <script>
-   
     $('.add').on('click', add);
                 $('.add-image').on('click', add_image);
                 $('.add-vedio').on('click', add_vedio);

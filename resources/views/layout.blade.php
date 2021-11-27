@@ -10,6 +10,7 @@
 		<!-- CSS FILES -->
         <link rel="stylesheet" type="text/css" href="{{ url('css/uikit-rtl.min.css') }}">
         <link rel="stylesheet" href="{{ url('css/style.css') }}">
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
         @stack('styles')
 	</head>
     <style>

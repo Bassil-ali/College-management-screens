@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Stmt\Foreach_;
+use Redirect;
+
 
 class AnnouncementController extends Controller
 {
@@ -92,7 +94,60 @@ class AnnouncementController extends Controller
     public function update(Request $request)
     {
         $announcement = Announcement::find($request->id);
+        if ($request->type == "multi_type") {
 
+            $request->validate([
+                'content_start' => 'required|date',
+                'content_end' => 'required|date',
+            ]);
+
+           
+            if ($request->image == null) {
+                $result['images'] =  [];
+
+            }
+
+            if ($request->text[0] == null) {
+                $result['text'] = [];
+            }
+
+            if ($request->vedio == null) {
+                $result['vedio'] =  [];
+
+            }
+            if ($request->text[0] != null) {
+
+                $result['text'][] = $request->text;
+            }
+            if ($request->image != null) {
+                foreach ($request->image as $image) {
+                    $extension = $image->extension();
+                    $value = Str::random(10) . '.' . $extension;
+                    $result['images'][] = $value;
+                    $image->storeAs('content', $value);
+                }
+            }
+
+            if ($request->vedio != null) {
+                foreach ($request->vedio as $vedio) {
+
+                    $extension = $vedio->extension();
+                    $value = Str::random(10) . '.' . $extension;
+                    $result['vedio'][] = $value;
+
+                    $vedio->storeAs('content', $value);
+                }
+            }
+
+            $announcement->update([
+                'type' => $request->type,
+                'value' => json_encode($result),
+                'is_active' => true,
+                'content_start' => $request->content_start,
+                'content_end' => $request->content_end,
+            ]);
+            return redirect()->route('screens.show',$announcement->screen_id)->with('success', __('announcements.update'));
+        }
         if ($request->type == 'text') {
             $announcement->update([
                 'value' => $request->text,
@@ -146,6 +201,82 @@ class AnnouncementController extends Controller
 
         // dd($request->all());
 
+        $conuter = Announcement::select('announcements_number')->latest()->first();
+        if ($conuter == null) {
+            $pluse =  $conuter = 1;
+        } else {
+            $pluse =  $conuter->announcements_number;
+            $pluse++;
+        }
+        $conuter =  $pluse;
+
+
+        $user = $request->user();
+
+        if ($user->is_admin) {
+            $screens = Screen::all();
+        } else {
+            $screens = Screen::where('user_id', $user->id)->get();
+        }
+
+        if ($request->type == "multi_type") {
+            $request->validate([
+                'content_start' => 'required',
+                'content_end' => 'required',
+
+            ]);
+
+
+            if ($request->image == null) {
+                $result['images'] =  [];
+            }
+
+            if ($request->text[0] == null) {
+                $result['text'] = [];
+            }
+
+            if ($request->vedio == null) {
+                $result['vedio'] =  [];
+            }
+            if ($request->text[0] != null) {
+
+                $result['text'][] = $request->text;
+            }
+                if ($request->image != null) {
+                    foreach ($request->image as $image) {
+                        $extension = $image->extension();
+                        $value = Str::random(10) . '.' . $extension;
+                        $result['images'][] = $value;
+                        $image->storeAs('content', $value);
+                    }
+                }
+                if ($request->vedio != null) {
+                    foreach ($request->vedio as $vedio) {
+
+                        $extension = $vedio->extension();
+                        $value = Str::random(10) . '.' . $extension;
+                        $result['vedio'][] = $value;
+
+                        $vedio->storeAs('content', $value);
+                    }
+                }
+                foreach ($screens as $screen) {
+
+
+                    $screen->announcements()->create([
+                        'type' => $request->type,
+                        'value' => json_encode($result),
+                        'is_active' => true,
+                        'user_id' => $user->id,
+                        'announcements_number' => $conuter,
+                        'content_start' => $request->content_start,
+                        'content_end' => $request->content_end,
+                    ]);
+                }
+            return back()->with('success', __('announcements.create'));
+
+            }
+       
         // Validation
         if ($request->type == 'text') {
             $request->validate([
@@ -171,15 +302,13 @@ class AnnouncementController extends Controller
 
             $conuter = Announcement::select('announcements_number')->latest()->first();
             if ($conuter == null) {
-               $pluse =  $conuter = 1;
-            }else{
+                $pluse =  $conuter = 1;
+            } else {
                 $pluse =  $conuter->announcements_number;
                 $pluse++;
             }
 
             $conuter =  $pluse;
-            
-
 
             foreach ($screens as $screen) {
                 if ($request->type == 'text') {
@@ -254,7 +383,7 @@ class AnnouncementController extends Controller
             $announcements[] = Announcement::where('announcements_number', $distinct->announcements_number)->first();
         }
 
-        
+
         return view('screens._all_announcements', compact('announcements'));
     }
 
@@ -263,6 +392,60 @@ class AnnouncementController extends Controller
 
         $announcement = Announcement::find($request->announcements_number);
 
+        if ($request->type == "multi_type") {
+
+            $request->validate([
+                'content_start' => 'required|date',
+                'content_end' => 'required|date',
+            ]);
+
+
+            if ($request->image == null) {
+                $result['images'] =  [];
+            }
+
+            if ($request->text[0] == null) {
+                $result['text'] = [];
+            }
+
+            if ($request->vedio == null) {
+                $result['vedio'] =  [];
+            }
+            if ($request->text[0] != null) {
+
+                $result['text'][] = $request->text;
+            }
+                if ($request->image != null) {
+                    foreach ($request->image as $image) {
+                        $extension = $image->extension();
+                        $value = Str::random(10) . '.' . $extension;
+                        $result['images'][] = $value;
+                        $image->storeAs('content', $value);
+                    }
+                }
+
+                if ($request->vedio != null) {
+                    foreach ($request->vedio as $vedio) {
+
+                        $extension = $vedio->extension();
+                        $value = Str::random(10) . '.' . $extension;
+                        $result['vedio'][] = $value;
+
+                        $vedio->storeAs('content', $value);
+                    }
+                }
+
+                $announcement->where('announcements_number', $request->announcements_number)->update([
+                        'type' => $request->type,
+                        'value' => json_encode($result),
+                        'is_active' => true,
+                        'content_start' => $request->content_start,
+                        'content_end' => $request->content_end,
+                    ]);
+            return redirect()->route('All.Announcement')->with('success', __('announcements.update'));
+
+            }
+       
         if ($request->type == 'text') {
             $announcement->where('announcements_number', $request->announcements_number)->update([
                 'type' => $request->type,
@@ -303,10 +486,24 @@ class AnnouncementController extends Controller
     public function deleteAllannouncement($id)
     {
         $announcement = Announcement::where('announcements_number', $id)->get();
-        foreach($announcement as $ann){
+        foreach ($announcement as $ann) {
             $ann->delete();
         }
 
         return back()->with('success', __('announcements.delete'));
+    }
+
+    public function editAllAllannouncement($number)
+    {
+        $announcement = Announcement::where('announcements_number', $number)->first();
+
+      return view('screens.edit_all_announcements',compact('announcement'));
+    }
+
+    public function editOneannouncement($id)
+    {
+        $announcement = Announcement::where('id', $id)->first();
+
+      return view('screens.edit_one_announcement',compact('announcement'));
     }
 }

@@ -33,7 +33,7 @@
      <div id="announcements" class="container uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: fade; autoplay: true; draggable: false; autoplay-interval: 30000; pause-on-hover: false">
         <ul id="contnet" class="uk-slideshow-items" uk-height-viewport="offset-top: true; offset-bottom: true">
         </ul>
-    </div>
+</div>
 
     <script src="{{ url('js/uikit.min.js') }}"></script>
     <script src="{{ url('js/uikit-icons.min.js') }}"></script>
