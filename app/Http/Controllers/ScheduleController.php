@@ -15,11 +15,16 @@ class ScheduleController extends Controller
 {
     public function index(Request $request)
     {
-
+        if(auth->user()->is_admin ==1){
+        return view('schedules.index', [
+            'rows' => Schedule::paginate(500),
+            'title' => 'الجداول',
+        ]);
+    }else{
         return view('schedules.index', [
             'rows' => Schedule::orWhere('specialty', auth()->user()->section)->paginate(500),
             'title' => 'الجداول',
-        ]);
+    }
     }
 
     public function search(Request $request)

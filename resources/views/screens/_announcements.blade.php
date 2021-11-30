@@ -31,7 +31,11 @@
                             value="{{ $announcement->id }}"></label></td>
                 <td>{{ $loop->index + 1 }}</td>
                 <td>{{ __('announcements.types')[$announcement->type] }}</td>
-                <td>{{ $announcement->type == 'text' ? $announcement->value : '' }}</td>
+               @if($announcement->type == 'multi_type')
+                <td>{{__('announcements.types')[$announcement->type]}}</td>
+                @else
+                <td>{{ $announcement->type == 'text' ? $announcement->value : 'ملف' }}</td>
+                @endif
                 @if (isset($announcement->content_end))
                 <td>{{ $announcement->content_end->format(__('announcements.format')) }}</td>
                 @else
