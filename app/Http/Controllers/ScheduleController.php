@@ -24,6 +24,8 @@ class ScheduleController extends Controller
         return view('schedules.index', [
             'rows' => Schedule::orWhere('specialty', auth()->user()->section)->paginate(500),
             'title' => 'الجداول',
+                    ]);
+
     }
     }
 
