@@ -37,7 +37,7 @@
                 @else
                 <td></td>
                 @endif
-                @if($announcement->type = 'multi_type')
+                @if($announcement->type == 'multi_type')
                 <td>
                     <a class="uk-button uk-button-text" href="{{route('edit.one.Announcement',['id' => $announcement->id])}}" uk-toggle><span
                             uk-icon="pencil"></span></a>

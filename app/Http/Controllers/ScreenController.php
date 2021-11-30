@@ -64,12 +64,12 @@ class ScreenController extends Controller
             }
         }
 
-        abort_if(!$show, 403);
 
         $lectures = Schedule::where('hall', $screen->hall)
             ->orderBy('day_index', 'asc')
             ->orderBy('start', 'asc')
             ->get();
+
 
         return view('screens.show', [
             'title' => __('screens.screen', ['number' => $screen->id]),
