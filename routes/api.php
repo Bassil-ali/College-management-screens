@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('getAnnouncements/{screen_id}', 'apiController@getAnnouncements')->name('api.Announcements');
+Route::get('Announcements/{screen_id}', 'apiController@Announcements')->name('api.Announcements');
 Route::get('getSchedules/{screen_id}', 'apiController@getSchedule')->name('api.Schedules');
 
 Route::prefix('users')->group(function () {
