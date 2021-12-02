@@ -14,9 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('screen', 'MonitorController@getMonitorContnet')->name('api.monitor');
-Route::get('Announcements', 'apiController@getAnnouncements')->name('api.Announcements');
-Route::get('Schedules', 'apiController@getSchedule')->name('api.Schedules');
+Route::get('getAnnouncements/{screen_id}', 'apiController@getAnnouncements')->name('api.Announcements');
+Route::get('getSchedules/{screen_id}', 'apiController@getSchedule')->name('api.Schedules');
 
 Route::prefix('users')->group(function () {
     Route::delete('{user}', 'UserController@destroy')->name('users.destroy');
