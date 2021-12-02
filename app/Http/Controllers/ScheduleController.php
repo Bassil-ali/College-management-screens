@@ -15,7 +15,7 @@ class ScheduleController extends Controller
 {
     public function index(Request $request)
     {
-        if(auth->user()->is_admin ==1){
+        if(auth()->user()->is_admin ==1){
         return view('schedules.index', [
             'rows' => Schedule::paginate(500),
             'title' => 'الجداول',
