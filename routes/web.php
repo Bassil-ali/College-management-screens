@@ -39,6 +39,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('schedules')->group(function () {
+        Route::get('controller-screens','ControllerScreenController@getScreens')->name('controller.screens');
         Route::get('', 'ScheduleController@index')->name('schedules.index');
         Route::get('search', 'ScheduleController@search')->name('schedules.search');
         Route::get('download', 'ScheduleController@download')->name('schedules.download');

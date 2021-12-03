@@ -29,6 +29,19 @@
     </div>
     @endforeach
 </div>
+<br>
+@if (auth()->user()->is_admin == 1)
+    <center>
+        <div style="width: 50%">
+            <div style="color: rgb(255, 255, 255)">مراقبة الشاشات</div><br>
+            <div style="border-radius: 2%" class="uk-card uk-card-default uk-card-body button"
+                data-link="{{route('controller.screens')}}">
+                <span uk-icon="icon: camera; ratio: 5.0"></span>
+            </div>
+        </div>
+    </center>
+@endif
+
 
 
 @endsection
