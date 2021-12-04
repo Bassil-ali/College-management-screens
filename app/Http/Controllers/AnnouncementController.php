@@ -24,6 +24,66 @@ class AnnouncementController extends Controller
     {
         $announcement = null;
 
+          if ($request->type == "multi_type") {
+            $request->validate([
+                'content_start' => 'required',
+                'content_end' => 'required',
+
+            ]);
+
+
+            if ($request->image == null) {
+                $result['images'] =  [];
+            }
+
+            if ($request->text[0] == null) {
+                $result['text'] = [];
+            }
+
+            if ($request->vedio == null) {
+                $result['vedio'] =  [];
+            }
+            if ($request->text[0] != null) {
+
+                $result['text'][] = $request->text;
+            }
+                if ($request->image != null) {
+                    foreach ($request->image as $image) {
+                        $extension = $image->extension();
+                        $value = Str::random(10) . '.' . $extension;
+                        $result['images'][] = $value;
+                        $image->storeAs('content', $value);
+                    }
+                }
+                if ($request->vedio != null) {
+                    foreach ($request->vedio as $vedio) {
+
+                        $extension = $vedio->extension();
+                        $value = Str::random(10) . '.' . $extension;
+                        $result['vedio'][] = $value;
+
+                        $vedio->storeAs('content', $value);
+                    }
+                }
+
+                    $conuter = 0;
+                    $announcement = Announcement::create([
+                        'screen_id' => $request->screen_id,
+                        'type' => $request->type,
+                        'value' => json_encode($result),
+                        'is_active' => true,
+                        'user_id' => auth()->user()->id,
+                        'announcements_number' => $conuter,
+                        'content_start' => $request->content_start,
+                        'content_end' => $request->content_end,
+                    ]);
+                    $announcement->screen()->update([
+                'fingerprint' => Str::random(80),
+            ]);
+                
+
+        return back()->with('success', __('announcements.create'));
+     }
         if ($request->type == 'text') {
             $request->validate([
                 'text' => 'required|max:255',
@@ -376,7 +436,7 @@ class AnnouncementController extends Controller
     {
 
 
-        $Announcement = Announcement::select('announcements_number')->distinct()->get();
+        $Announcement = Announcement::where('announcements_number','!=',0)->select('announcements_number')->distinct()->get();
 
         $announcements = [];
         foreach ($Announcement as $distinct) {

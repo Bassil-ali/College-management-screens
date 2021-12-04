@@ -129,8 +129,8 @@ $i = 0;
         {{ $screen->id }}<br>{{ __('screens.free') }}<br><span class="uk-text-small">{!! isset($screen->user) ?
             $screen->user->section : '&nbsp;&nbsp;' !!}</span>
     </div>
+    @endif
 </div>
-        @endif
         @endif
         @endforeach
 </div>
@@ -183,6 +183,6 @@ $i = 0;
 
 $("#run").load(window.location.href + " #run");
 
-}, 300000);
+}, 9000);
 </script>
 @endpush

@@ -8,6 +8,92 @@
     </div>
 </div>
 
+
+<div class="uk-card uk-margin-medium-bottom  uk-padding global">
+    <a class="uk-button uk-button-default add-content uk-inline" type="button"
+        href="#modal-sections" uk-toggle>اضافة اعلان متعدد</a>
+</div>
+
+<div id="modal-sections" uk-modal>
+    <div class="uk-modal-dialog">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="uk-modal-header">
+            <h2 class="uk-modal-title">اضافة اعلان متعدد</h2>
+        </div>
+        <div class="uk-modal-body">
+            <form action="{{route('announcements.create')}}" method="post" class="uk-form-horizontal uk-margin-large"
+                enctype="multipart/form-data">
+                @csrf
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-horizontal-text">النص</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="form-horizontal-text" type="text" name="text[]" placeholder="النص">
+                    </div>
+                    <div id="new_chq"></div>
+                </div>
+
+                <a class="uk-button uk-button-primary add">اضافة نص اخر+</a>
+                {{-- <button class="uk-button uk-button-danger remove">remove</button> --}}
+
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-horizontal-select">اختر صوره</label>
+                    <div class=" uk-placeholder uk-text-center">
+                        <span uk-icon="icon: cloud-upload"></span>
+                        <span class="uk-text-middle">إرفاق الثنائيات بإسقاطها هنا </span>
+                        <div uk-form-custom>
+                            <input type="file" name="image[]" value="" multiple>
+                            <span class="uk-link">اختر من هنا</span>
+                        </div>
+                    </div>
+                    <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
+                    <div id="new_chq_image"></div>
+                </div>
+                <a class="uk-button uk-button-primary add-image">اضافة صوره جديدة</a>
+
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-horizontal-select">اختر فديو</label>
+                    <div class="js-upload uk-placeholder uk-text-center">
+                        <span uk-icon="icon: cloud-upload"></span>
+                        <span class="uk-text-middle">إرفاق الثنائيات بإسقاطها هنا </span>
+                        <div uk-form-custom>
+                            <input type="file" name="vedio[]" value="" multiple>
+                            <span class="uk-link">اختر من هنا</span>
+                        </div>
+                    </div>
+                    <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
+                    <div id="new_chq_vedio"></div>
+                </div>
+                <a class="uk-button uk-button-primary add-vedio">اضافة فديو جديد</a>
+                <div uk-grid>
+                    <div class="uk-width-1-2">
+                       وقت البداية
+                        <div class="">
+                            <input type="text" name="content_start" id="begin" class="uk-input datetimepicker"
+                                autocomplete="off"
+                                value="{{ isset($announcement->content_start) ? $announcement->content_start->format('Y-m-d h:i') : '' }}">
+                        </div>
+                    </div>
+
+                    <div class="uk-width-1-2">
+                       وقت النهاية
+                        <div class="">
+                            <input type="text" name="content_end" id="end" class="uk-input datetimepicker"
+                                autocomplete="off"
+                                value="{{ isset($announcement->content_end) ? $announcement->content_end->format('Y-m-d h:i') : '' }}">
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="screen_id" value="{{$screen->id}}" >
+                <input type="hidden" value="multi_type" name="type">
+        </div>
+        <div class="uk-modal-footer uk-text-right">
+            <button class="uk-button uk-button-default uk-modal-close" type="button">الغاء</button>
+            <button class="uk-button uk-button-primary" type="submit">حفظ</button>
+        </div>
+        </form>
+    </div>
+</div>
+
 <div class="uk-margin-top-remove">
     <table class="uk-table uk-table-hover ">
         <thead>
