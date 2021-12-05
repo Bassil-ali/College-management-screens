@@ -140,7 +140,7 @@ class MonitorController extends Controller
 
         $lectures = Schedule::where([
             'hall' => $screen->hall,
-            'day_index' => 2
+            'day_index' => $day,
         ])->get();
 
     
