@@ -18,14 +18,16 @@
 @php
 $i = 0;
 @endphp
-<center><h1 style="color:#fff">مراقبة الشاشات</h1></center>
+<center>
+    <h1 style="color:#fff">مراقبة الشاشات</h1>
+</center>
 <div id="run" class="uk-child-width-expand@s uk-text-center uk-text-large button-container" uk-grid>
     @foreach ($screens as $screen)
     @php
     $day = today()->dayOfWeek;
     $Schedules = App\Schedule::select(
-    'id',   
-    
+    'id',
+
     'instructor_name',
     'classification',
     'specialty',
@@ -38,9 +40,11 @@ $i = 0;
     ])->get();
     $current = null;
     $now = now();
+    if(count($Schedules) > 0){
     foreach ($Schedules as $Schedule) {
     if($now >= $Schedule->start && $now <= $Schedule->end) {
         $current[] = $Schedule;
+        }
         }
         }
         // dd($current[0]->instructor_name);
@@ -57,39 +61,38 @@ $i = 0;
         }
         }
         @endphp
-        {{-- {{dd($Schedules)}} --}}
-        @if(count($Schedules) > 0)
-        @if($current[1]->instructor_name != null)
-        <div class="uk-width-1-5 button"  style="z-index: inherit">
+        @if($current !=null)
+        <div class="uk-width-1-5 button" style="z-index: inherit">
             @if (isset($screen->hall))
             <div style="background-color: rgb(0, 255, 115);opacity:0.5;"
                 class="uk-card uk-card-default uk-card-body uk-background-blend-screen ">
-                <a style="color:black!important" class="uk-button uk-button-danger" href="#modal-overflow-{{$current[0]->id}}" uk-toggle>المعلمين</a>
+                <a style="color:black!important" class="uk-button uk-button-danger"
+                    href="#modal-overflow-{{$current[0]->id}}" uk-toggle>المعلمين</a>
                 <br><br>
                 <div id="modal-overflow-{{$current[0]->id}}" uk-modal>
                     <div class="uk-modal-dialog">
-                
+
                         <button class="uk-modal-close-default" type="button" uk-close></button>
-                
+
                         <div class="uk-modal-header">
                             <h2 class="uk-modal-title">المعلمين</h2>
                         </div>
-                        <div  class="uk-modal-body" uk-overflow-auto>
+                        <div class="uk-modal-body" uk-overflow-auto>
                             @foreach ($current as $curr)
-                                <div style="text-align: center;border: solid;">
-                                    <h2 style="background: #fff;color:black">{{$curr->instructor_name}}</h2>
-                                    <h3 style="background: #fff;color:black">{{$curr->classification}}</h3>
-                                    <h3 style="background: #fff;color:black">{{$curr->subject_name}}</h3>
-                                </div>
-                               
+                            <div style="text-align: center;border: solid;">
+                                <h2 style="background: #fff;color:black">{{$curr->instructor_name}}</h2>
+                                <h3 style="background: #fff;color:black">{{$curr->classification}}</h3>
+                                <h3 style="background: #fff;color:black">{{$curr->subject_name}}</h3>
+                            </div>
+
                             @endforeach
-                                           
+
                         </div>
-                
+
                         <div class="uk-modal-footer uk-text-right">
                             <button class="uk-button uk-button-default uk-modal-close" type="button">خروج</button>
                         </div>
-                
+
                     </div>
                 </div>
                 <center>
@@ -107,30 +110,30 @@ $i = 0;
                 {{ $screen->id }}<br>{{ __('screens.free') }}<br><span class="uk-text-small">{!! isset($screen->user) ?
                     $screen->user->section : '&nbsp;&nbsp;' !!}</span>
             </div>
-            
+
             @endif
         </div>
-       
-        @endif
+
         @else
-<div class="uk-width-1-5 button" data-link="{{ $add_link ? route('screens.show', ['screen' => $screen]) : null }}"  style="z-index: inherit">
-   
-    @if (isset($screen->hall))
-    <div
-        class="uk-card uk-card-default uk-card-body uk-background-muted{{ isset($screen->user) ? ' background-selected' : '' }}">
-       
-        {{ $screen->id }}<br>{{ $screen->hall }}<br><span class="uk-text-small">{!! isset($screen->user) ?
-            $screen->user->section : '&nbsp;&nbsp;' !!}</span>
-    </div>
-    @else
-   
-    <div class="uk-card uk-card-default uk-card-body{{ isset($screen->user) ? ' background-selected' : '' }}">
-       
-        {{ $screen->id }}<br>{{ __('screens.free') }}<br><span class="uk-text-small">{!! isset($screen->user) ?
-            $screen->user->section : '&nbsp;&nbsp;' !!}</span>
-    </div>
-    @endif
-</div>
+        <div class="uk-width-1-5 button"
+            data-link="{{ $add_link ? route('screens.show', ['screen' => $screen]) : null }}" style="z-index: inherit">
+
+            @if (isset($screen->hall))
+            <div
+                class="uk-card uk-card-default uk-card-body uk-background-muted{{ isset($screen->user) ? ' background-selected' : '' }}">
+
+                {{ $screen->id }}<br>{{ $screen->hall }}<br><span class="uk-text-small">{!! isset($screen->user) ?
+                    $screen->user->section : '&nbsp;&nbsp;' !!}</span>
+            </div>
+            @else
+
+            <div class="uk-card uk-card-default uk-card-body{{ isset($screen->user) ? ' background-selected' : '' }}">
+
+                {{ $screen->id }}<br>{{ __('screens.free') }}<br><span class="uk-text-small">{!! isset($screen->user) ?
+                    $screen->user->section : '&nbsp;&nbsp;' !!}</span>
+            </div>
+            @endif
+        </div>
         @endif
         @endforeach
 </div>
@@ -179,7 +182,7 @@ $i = 0;
     });
 </script>
 <script>
- setInterval(function() {
+    setInterval(function() {
 
 $("#run").load(window.location.href + " #run");
 
