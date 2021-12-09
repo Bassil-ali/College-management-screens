@@ -397,6 +397,11 @@ class AnnouncementController extends Controller
     public function activateText(Request $request)
     {
         $announcement = Announcement::find($request->id);
+         $request->validate([
+                'content_start' => 'required',
+                'content_end' => 'required',
+
+            ]);
         $announcement->update([
             'is_active' => true,
             'content_start' => $request->content_start,

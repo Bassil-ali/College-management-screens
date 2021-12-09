@@ -48,9 +48,9 @@
                             <tbody>
                                 <tr>
                                     <td class="uk-padding-remove-vertical" style="color: #000000 !important">{{
-                                        $announcement->content_start->format(__('announcements.format')) }}</td>
+                                        $announcement->content_start }}</td>
                                     <td class="uk-padding-remove-vertical" style="color: #000000 !important">{{
-                                        $announcement->content_end->format(__('announcements.format')) }}</td>
+                                        $announcement->content_end }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -91,9 +91,9 @@
                     <tbody>
                         <tr>
                             <td class="uk-padding-remove-vertical" style="color: #000000 !important">{{
-                                $announcement->content_start->format(__('announcements.format')) }}</td>
+                                $announcement->content_start }}</td>
                             <td class="uk-padding-remove-vertical" style="color: #000000 !important">{{
-                                $announcement->content_end->format(__('announcements.format')) }}</td>
+                                $announcement->content_end }}</td>
                         </tr>
                     </tbody>
                 </table>
