@@ -26,7 +26,11 @@
                         <td>{{ $loop->index + 1 }}</td>
                         <td>{{ $log->created_at->format('Y-m-d') }}</td>
                         <td>{{ $log->created_at->format('H:i') }}</td>
+                        @if(strpos($log->message,'announcements') == true)
+                        <td>إضافة سجل إعلان (اعلان متعدد)</td>
+                        @else
                         <td>{{ $log->message }}</td>
+                        @endif
 
                         @if (Route::currentRouteName() == 'users.log')
                         <td>{{ isset($log->screen) ? $log->screen->id : '' }}</td>
