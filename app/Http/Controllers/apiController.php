@@ -12,35 +12,34 @@ use Illuminate\Support\Str;
 
 class apiController extends Controller
 {
-    public function getAnnouncements($screen_id){
-    {
-        $screen = Screen::find($screen_id);
-        if($screen == NULL){
-            return response(json_encode([
-            ],JSON_UNESCAPED_UNICODE))->header('Content-Type', 'application/json');
-        }
-        $day = today()->dayOfWeek;
+//     public function getAnnouncements($screen_id){
+//     {
+//         $screen = Screen::find($screen_id);
+//         if($screen == NULL){
+//             return response(json_encode([
+//             ],JSON_UNESCAPED_UNICODE))->header('Content-Type', 'application/json');
+//         }
+//         $day = today()->dayOfWeek;
 
-             $Announcements = $screen->announcements()->where([
-                ['is_active', '=', true],
-                ['type', '=', 'multi_type'],
-                ['content_start', '<=', now()],
-                ['content_end', '>=', now()],
-            ])->get();
+//              $Announcements = $screen->announcements()->where([
+//                 ['is_active', '=', true],
+//                 ['content_start', '<=', now()],
+//                 ['content_end', '>=', now()],
+//             ])->get();
 
-            if($Announcements->count() > 0) {
+//             if($Announcements->count() > 0) {
 
-                return response(json_encode([
-                  $Announcements,
-                ],JSON_UNESCAPED_UNICODE))->header('Content-Type', 'application/json');
-            }
+//                 return response(json_encode([
+//                   $Announcements,
+//                 ],JSON_UNESCAPED_UNICODE))->header('Content-Type', 'application/json');
+//             }
 
-        return response(json_encode([
-            'image' => 'logo.jpg',
-        ],JSON_UNESCAPED_UNICODE))->header('Content-Type', 'application/json');
+//         return response(json_encode([
+//             'image' => 'logo.jpg',
+//         ],JSON_UNESCAPED_UNICODE))->header('Content-Type', 'application/json');
 
-    }
- }
+//     }
+//  }
 
     public function Announcements($screen_id){
         {
@@ -51,7 +50,6 @@ class apiController extends Controller
             }
                 $Announcements = $screen->announcements()->where([
                     ['is_active', '=', true],
-                    ['type', '=', 'multi_type'],
                     ['content_start', '<=', now()],
                     ['content_end', '>=', now()],
                 ])->get();
