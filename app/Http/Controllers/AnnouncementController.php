@@ -25,6 +25,10 @@ class AnnouncementController extends Controller
         $announcement = null;
 
           if ($request->type == "multi_type") {
+              if ($request->text[0] == null && $request->image == null && $request->vedio == null) {
+                return back()->with('error', "تاكد من البيانات الدخلة");
+
+            }
             $request->validate([
                 'content_start' => 'required',
                 'content_end' => 'required',
@@ -279,6 +283,10 @@ class AnnouncementController extends Controller
             $screens = Screen::where('user_id', $user->id)->get();
         }
 
+        if ($request->text[0] == null && $request->image == null && $request->vedio == null) {
+                return back()->with('error', "تاكد من البيانات الدخلة");
+
+            }
         if ($request->type == "multi_type") {
             $request->validate([
                 'content_start' => 'required',
@@ -286,6 +294,7 @@ class AnnouncementController extends Controller
 
             ]);
 
+            
 
             if ($request->image == null) {
                 $result['images'] =  [];
@@ -457,8 +466,12 @@ class AnnouncementController extends Controller
 
         $announcement = Announcement::find($request->announcements_number);
 
+       
         if ($request->type == "multi_type") {
+            if ($request->text[0] == null && $request->image == null && $request->vedio == null) {
+                            return back()->with('error', "تاكد من البيانات الدخلة");
 
+                        }
             $request->validate([
                 'content_start' => 'required|date',
                 'content_end' => 'required|date',
