@@ -95,7 +95,7 @@ class AllTables extends Migration
             $table->foreignId('screen_id');
             $table->foreignId('user_id')->nullable();
             $table->text('type');
-            $table->string('value');
+            $table->text('value');
             $table->integer('announcements_number')->default(0);
             $table->dateTime('content_start')->nullable();
             $table->dateTime('content_end')->nullable();

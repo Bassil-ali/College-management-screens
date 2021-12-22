@@ -90,7 +90,7 @@ class AnnouncementController extends Controller
      }
         if ($request->type == 'text') {
             $request->validate([
-                'text' => 'required|max:255',
+                'text' => 'required',
             ]);
 
             $announcement = Announcement::create([
@@ -351,7 +351,7 @@ class AnnouncementController extends Controller
             $request->validate([
                 'content_start' => 'required|date:H:i Y-m-d',
                 'content_end' => 'required|date:H:i Y-m-d',
-                'text' => 'required|max:255',
+                'text' => 'required',
             ]);
         } else {
 
